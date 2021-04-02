@@ -133,7 +133,7 @@ def insertDB(content):
 
 
 if __name__ == '__main__':
-    jl_db = [3612,4680,4681,4928,7013]
+    jl_db = [5101,5105,5108,9501,9513]
     jl_web = jl_db
 
     big_list = []
