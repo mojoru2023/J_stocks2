@@ -51,7 +51,7 @@ def read_xlrd(excelFile):
 def get_allURL():
 
     lpath = os.getcwd()
-    for item in ["Banking.xlsx"]:
+    for item in ["FX.xlsx"]:
 
         excelFile = '{0}\\{1}'.format(lpath,item)
         full_items = read_xlrd(excelFile=excelFile)
