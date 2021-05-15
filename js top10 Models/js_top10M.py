@@ -109,8 +109,10 @@ if __name__ == '__main__':
 
     print(f_lst)
     # 关键的排序
+    # 先剔除重复项
+    f_set = list(set(f_lst))
     f_lst.sort(key=lambda x:x[1],reverse=True)
-    title_l = [x[0] for x in f_lst[:10]]
+    title_l = [x[0] for x in f_set[:10]]
     ff_l = []
     f_tup = tuple(title_l)
     ff_l.append((f_tup))
@@ -132,4 +134,4 @@ if __name__ == '__main__':
 # N9 varchar(10),
 # N10 varchar(10),
 #  LastTime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) engine=InnoDB  charset=utf8;
-
+#
