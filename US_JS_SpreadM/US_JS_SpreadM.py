@@ -184,12 +184,13 @@ if __name__ == '__main__':
     js400_=big_list[1]
     sp500_=big_list[2]
     nas_100_=big_list[3]
-    js_225_400 = float(js225_)/float(js400_)
-    js225_sp500 =  float(js225_)/float(sp500_)
-    js225_nas100 = float(js225_)/float(nas_100_)
-    nas100_sp500 = float(nas_100_)/float(sp500_)
-    js400_sp500 =  float(js400_)/float(sp500_)
-    js400_nas100 = float(js400_)/float(nas_100_)
+    # 要价差，不要比价
+    js_225_400 = float(js225_)-float(js400_)
+    js225_sp500 =  float(js225_)-float(sp500_)
+    js225_nas100 = float(js225_)-float(nas_100_)
+    nas100_sp500 = float(nas_100_)-float(sp500_)
+    js400_sp500 =  float(js400_)-float(sp500_)
+    js400_nas100 = float(js400_)-float(nas_100_)
     title_l = [js_225_400,js225_sp500,js225_nas100,nas100_sp500,js400_sp500,js400_nas100]
 
     ff_l = []
