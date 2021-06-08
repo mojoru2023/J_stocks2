@@ -112,11 +112,15 @@ if __name__ == '__main__':
     # 先剔除重复项
     f_set = list(set(f_lst))
     f_lst.sort(key=lambda x:x[1],reverse=True)
-    title_l = [x[0] for x in f_set[:10]]
+
+    l_set = list(set(f_lst))
+    l_set.sort(key=lambda x: x[1], reverse=True)
+    title_l = [x[0] for x in l_set[:10]]
     ff_l = []
     f_tup = tuple(title_l)
     ff_l.append((f_tup))
     print(f_lst)
+    print(l_set)
     print(ff_l)
     insertDB(ff_l)
 
@@ -134,4 +138,4 @@ if __name__ == '__main__':
 # N9 varchar(10),
 # N10 varchar(10),
 #  LastTime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) engine=InnoDB  charset=utf8;
-#
+
