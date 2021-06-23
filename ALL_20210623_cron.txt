@@ -1,0 +1,199 @@
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+
+# For details see man 4 crontabs
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+
+
+#  us_top0623
+
+
+0,10,20,30,40,50  0-4  * * 2-6 /usr/bin/python3 /root/Follw_US_20210623_top10
+
+0 9 * * *  /usr/bin/python3 /root/FUS_20210623_DT_top10
+
+
+
+
+# 长期跟踪js top10
+*/20  8-14 * * 1-5   /usr/bin/python3 /root/Follw_JS_20210608_top10.py
+
+
+0 15 * * *  /usr/bin/python3 /root/FJS_20210608_DT_top10.py
+
+
+
+
+# us_js spread模型
+0,10,20,30,40,50  21-23 * * 1-5 /usr/bin/python3 /root/US_JS_SpreadM.py
+0,10,20,30,40,50  0-4  * * 2-6 /usr/bin/python3 /root/US_JS_SpreadM.py
+*/20  8-14 * * 1-5   /usr/bin/python3 /root/US_JS_SpreadM.py
+
+
+0 15 * * *  /usr/bin/python3 /root/cron_us_js_SM.py
+0 9 * * *  /usr/bin/python3 /root/cron_us_js_SM.py
+
+
+
+#US top10 models
+
+0 10 * * *  /usr/bin/python3 /root/Daily_Top10.py
+0 11 * * 1-5  /usr/bin/python3 /root/Cron_Daily_T10_US.py
+
+
+
+# 外汇跟踪模型
+
+*/20  * * * 1-5   /usr/bin/python3 /root/FX_daily.py
+
+
+0 16 * * *  /usr/bin/python3 /root/FX_cron.py
+
+
+# 长期跟踪模型
+
+
+*/20  8-14 * * 1-5   /usr/bin/python3    /root/Follw_JS_20210312.py
+
+0 15 * * *  /usr/bin/python3    /root/FJS_20210312_DT.py
+
+
+*/21  8-14 * * 1-5   /usr/bin/python3    /root/Follw_JS_20210326.py
+
+0 15 * * *  /usr/bin/python3    /root/FJS_20210326_DT.py
+
+
+*/19  8-14 * * 1-5   /usr/bin/python3   /root/Follw_JS_20210408.py
+
+0 15 * * *  /usr/bin/python3    /root/FJS_20210408_DT.py
+
+
+
+
+*/19  8-14 * * 1-5   /usr/bin/python3   /root/Follw_JS_20210417.py
+
+0 15 * * *  /usr/bin/python3    /root/FJS_20210417_DT.py
+
+
+
+
+
+
+*/19  8-14 * * 1-5   /usr/bin/python3   /root/LT_S1.py
+*/19  8-14 * * 1-5   /usr/bin/python3   /root/LT_S2.py
+*/19  8-14 * * 1-5   /usr/bin/python3   /root/LT_S3.py
+
+0 15 * * *  /usr/bin/python3    /root/Cron_LT_all.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/20  8-14 * * 1-5   /usr/bin/python3 /root/225_ALL.py
+*/20  8-14 * * 1-5   /usr/bin/python3 /root/400_m_ALL.py
+
+0 15 * * *  /usr/bin/python3 /root/cron_225_ALL.py
+0 15 * * *  /usr/bin/python3 /root/cron_400_ALL.py
+
+0 16 * * *  /usr/bin/python3 /root/js_top10M.py
+0 17 * * *  /usr/bin/python3 /root/cron_js_Top10M.py
+
+
+
+0 6 * * *       /sbin/reboot
+
+
+*/20  9-15 * * 1-5   /usr/bin/python3 /root/AHS300_.py
+
+
+*/20  8-14 * * 1-5   /usr/bin/python3 /root/j_sPool_M.py
+
+0 9 * * *  /usr/bin/python3 /root/Yahoo_J_Jobs_Daily.py
+* * * * * sh /root/t.sh
+
+59 17 11 * *  /usr/bin/python3 /root/_CFA/theAnalystSpace/tas_details.py
+
+*/20  8-14 * * 1-5   /usr/bin/python3 /root/JS_industry_d.py
+0 9 1 * *  /usr/bin/python3 /root/JS_industry_cron.py
+
+0 15 * * *  /usr/bin/python3 /root/cron_AHS300_.py
+0 15 * * *  /usr/bin/python3 /root/cronb_jspMons.py
+0 15 * * *  /usr/bin/python3 /root/cron_OneIndustryDetail.py
+0 15 * * *  /usr/bin/python3 /root/Tokyo_TechStack_cron.py
+0 15 * * *  /usr/bin/python3 /root/JS_industry_cron.py
+
+
+0 12 * * *  /usr/bin/python3 /root/cron_AHS300_.py
+0 12 * * *  /usr/bin/python3 /root/cronb_jspMons.py
+0 12 * * *  /usr/bin/python3 /root/cron_OneIndustryDetail.py
+0 12 * * *  /usr/bin/python3 /root/Tokyo_TechStack_cron.py
+0 12 * * *  /usr/bin/python3 /root/JS_industry_cron.py
+
+
+
+
+
+0 9 * * *  /usr/bin/python3 /root/Tokyo_TechStack_N.py
+0 9 1,12,28 * *  /usr/bin/python3 /root/Tokyo_TechStack_cron.py
+0 9 1,12,28 * *  /usr/bin/python3 /root/Tokyo_TechStack_cronF.py
+
+
+
+0 3 * * *  /usr/bin/python3 /root/da_db.py
+
+#中概股和纳指成分股跟踪起来
+
+
+
+0,10,20,30,40,50  21-23 * * 1-5 /usr/bin/python3 /root/US_ZGG.py
+0,10,20,30,40,50  0-4  * * 2-6 /usr/bin/python3 /root/US_ZGG.py
+
+0 9 * * *  /usr/bin/python3 /root/cron_US_ZGG.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+0,10,20,30,40,50  21-23 * * 1-5 /usr/bin/python3 /root/ZGG_.py
+0,10,20,30,40,50  0-4  * * 2-6 /usr/bin/python3 /root/ZGG_.py
+
+0,10,20,30,40,50  21-23 * * 1-5 /usr/bin/python3 /root/Nas_Mons.py
+0,10,20,30,40,50  0-4  * * 2-6 /usr/bin/python3 /root/Nas_Mons.py
+
+0 9 * * *  /usr/bin/python3 /root/cron_ZGG_.py
+0 9 * * *  /usr/bin/python3 /root/cron_Nas_Mons.py
+
+
+0,10,20,30,40,50  21-23 * * 1-5 /usr/bin/python3 /root/SP_Mons1.py
+0,10,20,30,40,50  0-4  * * 2-6 /usr/bin/python3 /root/SP_Mons1.py
+0 9 * * *  /usr/bin/python3 /root/cron_sp_Mons1.py
+
+0,10,20,30,40,50  21-23 * * 1-5 /usr/bin/python3 /root/SP_Mons2.py
+0,10,20,30,40,50  0-4  * * 2-6 /usr/bin/python3 /root/SP_Mons2.py
+0 9 * * *  /usr/bin/python3 /root/cron_sp_Mons2.py
