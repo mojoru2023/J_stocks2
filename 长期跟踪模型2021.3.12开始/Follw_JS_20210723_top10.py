@@ -117,7 +117,7 @@ def insertDB(content):
         f_lcode = sp_func(f_jsp)
 
         f_ls = "%s," * len(jl_db)# 这里错了
-        cursor.executemany('insert into F_js20210701_top10 ({0},top10_ave) values ({1},%s)'.format(f_lcode, f_ls[:-1]), content)
+        cursor.executemany('insert into F_js20210723_top10 ({0},top10_ave) values ({1},%s)'.format(f_lcode, f_ls[:-1]), content)
         connection.commit()
         connection.commit()
         connection.close()
@@ -133,7 +133,7 @@ def insertDB(content):
 
 
 if __name__ == '__main__':
-    jl_db = [9086,3038,9107,7453,6702,9101,1605,2802,6701,4091]
+    jl_db = [3038,3107,9086,4523,3349,2127,2146,3148,7309,5803]
     jl_web = jl_db
 
     big_list = []
@@ -178,10 +178,9 @@ if __name__ == '__main__':
 # 4555
 
 
-#
 
 
-#create table F_js20210701_top10(id int not null primary key auto_increment, J9086 FLOAT ,J3038 FLOAT ,J9107 FLOAT ,J7453 FLOAT ,J6702 FLOAT ,J9101 FLOAT ,J1605 FLOAT ,J2802 FLOAT ,J6701 FLOAT ,J4091 FLOAT ,top10_ave FLOAT, LastTime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ) engine=InnoDB  charset=utf8;
+#  create table F_js20210723_top10(id int not null primary key auto_increment, J3038 FLOAT,J3107 FLOAT,J9086 FLOAT,J4523 FLOAT,J3349 FLOAT,J2127 FLOAT,J2146 FLOAT,J3148 FLOAT,J7309 FLOAT,J5803 FLOAT, top10_ave FLOAT, LastTime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ) engine=InnoDB  charset=utf8;
 
 
-#
+#  drop  table F_js20210716_top10;
