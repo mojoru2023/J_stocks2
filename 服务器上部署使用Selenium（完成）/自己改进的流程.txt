@@ -1,0 +1,58 @@
+https://blog.csdn.net/qq_41137110/article/details/109499720
+
+
+参考文档，已经在阿里云上测试成功
+2021.7.30 
+
+
+1.查看linux版本
+
+我的系统是Red Hat 4.8.5。
+
+命令：cat /proc/version
+
+2. 安装selenium模块（前提是已经装好了python3环境）
+
+命令：pip3 install selenium
+
+3.安装chrome
+
+命令：yum install https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+
+默认会安装最新的服务器版本
+
+
+4.下载chromedriver驱动（结合实际安装的浏览器版本）
+http://chromedriver.storage.googleapis.com/index.html
+
+比如 手动下载，解压，
+
+wget http://chromedriver.storage.googleapis.com/92.0.4515.107/chromedriver_linux64.zip
+
+unzip chromedriver_linux64.zip
+
+
+然后给chromedriver 文件赋予可执行权限
+
+命令：chmod +x chromedriver
+
+然后放到环境变量PATH路径中
+
+cp chromedriver /usr/local/bin/
+
+cp  chromedriver /usr/local/bin/
+
+
+
+命令：cp chromedriver /usr/bin/
+
+可以查看chromedriver的版本号
+
+命令：chromedriver --version
+
+
+
+5. 使用测试脚本测试Selenium
+
+
+
