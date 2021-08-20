@@ -2,7 +2,7 @@
 
 
 // getJSON(url,作用的返回内容)  # 接口单项请求请求成功
-$.getJSON('http://127.0.0.1:5000/fjss',function (content) {
+$.getJSON('http://127.0.0.1:8009/data',function (content) {
     D_T = content.data;
 
      var chart = Highcharts.chart('container', {

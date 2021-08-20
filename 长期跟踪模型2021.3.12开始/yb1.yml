@@ -1,0 +1,57 @@
+
+
+
+
+## 字符串
+
+string.value: hello!
+
+boolean.value:true
+boolean.value:false
+
+
+int.value:100
+
+
+float.value:2.343
+
+null.value:~
+
+datetime.value: !!timestamp 2021-4
+
+
+
+person:
+  name:saf
+  age:10
+  man:true
+
+  address:
+      -asfda
+      a-as
+      asfda
+
+  asdfa:
+    [asdfam,daffas]
+
+
+student:
+  name:|
+    hello java
+
+string.value:!!str hello
+
+datetime.value: !!timestamp 2021-04-23
+
+
+xiaohong:&xiaohong
+  name:adsfa
+  age:20
+
+dept:
+  id:adsf034eaf
+  <<: *xiaohong
+
+
+base.host:https://chenpi.com
+add.person.url:{{base.host}}/person/add

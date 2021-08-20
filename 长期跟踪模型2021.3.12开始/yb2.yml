@@ -1,0 +1,23 @@
+
+spring:
+  profiles:
+    active:pro
+
+
+---
+
+spring:
+  profiles:dev
+
+server:
+  port:8080
+
+---
+
+
+spring:
+  profiles:pro
+
+server:
+  port:8081
+  
