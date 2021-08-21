@@ -19,49 +19,67 @@ from sqlalchemy import Column, Integer, String, Text
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-
-app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False  # 显示中文
-# 定义变量
-define("port", default=8009, help="默认端口8000")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost/JS_Mons'
-# app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-
-Base = declarative_base()
-
-# sqlalchemy 对已有表做操作需要先做一个映射类
-
-class FJSs(Base):
-    __tablename__ = 'FJSs'
-    id = Column(Integer,primary_key=True,nullable=False, autoincrement=True)
-    js_225_4000 = Column(String(12),nullable=True)  # String在数据库中常见为varchar类型
+from sshtunnel import SSHTunnelForwarder
+import pymysql
 
 
 
-    def to_json(self):
-        dict = self.__dict__
-        if "_sa_instance_state" in dict:
-            del dict["_sa_instance_state"]
-        return dict
+
+# def getdt():
+#     with SSHTunnelForwarder(
+#             ('47.105.163.6', 22),
+#             ssh_username="root",
+#             ssh_password="Mingyifan2007",
+#             remote_bind_address=('127.0.0.1', 3306)) as server:
+#         db_connect = pymysql.connect(
+#             host='127.0.0.1',
+#             port=server.local_bind_port,
+#             user='root',
+#             password='123456',
+#             database='JS_Mons',
+#         )
+#         db_curs = db_connect.cursor()
+#         sql_cmd = f"SELECT js_225_4000 FROM FJSs "
+#         db_curs.execute(sql_cmd)
+#         result = db_curs.fetchall()
+#         db_curs.close()
+#         db_connect.close()
+#         for item in result:
+#             result_list.append(item[0])
 
 
 # 创建视图类
 class IndexHandler(RequestHandler):
     def get(self):
-        big_list = []
-        pls = db.session.query(FJSs.js_225_4000).all()  # [[0.19],[0.19]] 需要两层遍历来做一个大列表
-        for item in pls:
-            for i in item:
-                num_int = float(i)
-                big_list.append(num_int)  # 需要把字符串类型转换为浮点型,而不是整型
-        # 有时候需要用int()函数转换字符串为整型，但是切记int()只能转化由纯数字组成的字符串，如下例：a
+
+
+        with SSHTunnelForwarder(
+                ('47.105.163.6', 22),
+                ssh_username="root",
+                ssh_password="Mingyifan2007",
+                remote_bind_address=('127.0.0.1', 3306)) as server:
+            db_connect = pymysql.connect(
+                host='127.0.0.1',
+                port=server.local_bind_port,
+                user='root',
+                password='123456',
+                database='JS_Mons',
+            )
+            db_curs = db_connect.cursor()
+            sql_cmd = f"SELECT js_225_4000 FROM FJSs "
+            db_curs.execute(sql_cmd)
+            result = db_curs.fetchall()
+            db_curs.close()
+            db_connect.close()
+            for item in result:
+                result_list.append(item[0])
+
+
+
         t = {}
-        t['data'] = big_list
+        t['data'] = result_list
         f_json = json.dumps(t)
         self.write(f_json)
-
 
 
 class Image(RequestHandler):
@@ -70,10 +88,10 @@ class Image(RequestHandler):
 
 
 
-
-
 # 程序入口
 if __name__ == '__main__':
+    result_list = []
+
     # 开始监听
     parse_command_line()
     app = Application(
@@ -93,7 +111,6 @@ if __name__ == '__main__':
 
     # 部署
     server = HTTPServer(app)
-    server.listen(options.port)
-
+    # server.listen(options.port)
     # 轮询监听
     IOLoop.current().start()
