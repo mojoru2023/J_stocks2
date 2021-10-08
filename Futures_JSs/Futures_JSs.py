@@ -58,7 +58,8 @@ def remove_block(items):
 
 def retry_if_io_error(exception):
     return isinstance(exception, WebDriverException)
-
+def retry_if_io_error1(exception):
+    return isinstance(exception, IndexError)
 '''
 1. 创建 URL队列, 响应队列, 数据队列 在init方法中
 2. 在生成URL列表中方法中,把URL添加URL队列中
@@ -86,6 +87,7 @@ class JSPool_M(object):
         self.url = url
 
     @retry(retry_on_exception=retry_if_io_error)
+    @retry(retry_on_exception=retry_if_io_error1)
     def page_request(self):
         '''
         服务器上必须配置无头模式
