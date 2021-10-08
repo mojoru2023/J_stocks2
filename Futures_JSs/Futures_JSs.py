@@ -10,9 +10,10 @@ import json
 from queue import Queue
 import threading
 from requests.exceptions import RequestException
+from retrying import retry
 
 
-
+from selenium.common.exceptions import WebDriverException
 
 from retrying import retry
 import datetime
@@ -34,28 +35,19 @@ from selenium import webdriver
 
 
 
-
-
-
-
-
-
-
-
+def retry_if_io_error(exception):
+    print("---------------------------")
+    return isinstance(exception, WebDriverException)
 
 
 
 def RemoveDot(item):
     f_l = []
     for it in item:
-
         f_str = "".join(it.split(","))
         f_l.append(f_str)
 
     return f_l
-
-
-
 
 def remove_block(items):
     new_items = []
@@ -63,13 +55,9 @@ def remove_block(items):
         f = "".join(it.split())
         new_items.append(f)
     return new_items
+
 def retry_if_io_error(exception):
-    return isinstance(exception, ZeroDivisionError)
-
-
-
-
-
+    return isinstance(exception, WebDriverException)
 
 '''
 1. 创建 URL队列, 响应队列, 数据队列 在init方法中
@@ -84,25 +72,21 @@ def run_forever(func):
     def wrapper(obj):
         while True:
             func(obj)
+
     return wrapper
-
-
-
 
 def remove_douhao(num):
     num1 = "".join(num.split(","))
     f_num = str(num1)
     return f_num
 
-
-
 class JSPool_M(object):
 
-    def __init__(self,url):
+    def __init__(self, url):
         self.url = url
 
+    @retry(retry_on_exception=retry_if_io_error)
     def page_request(self):
-
         '''
         服务器上必须配置无头模式
         '''
@@ -115,7 +99,6 @@ class JSPool_M(object):
         # 在启动浏览器时加入配置
         driver = webdriver.Chrome(options=ch_options)
 
-
         driver.get(self.url)
         html = driver.page_source
         driver.quit()
@@ -124,8 +107,7 @@ class JSPool_M(object):
     def page_parse_(self):
         '''根据页面内容使用lxml解析数据, 获取段子列表'''
 
-
-        html  = self.page_request()
+        html = self.page_request()
         element = etree.HTML(html)
 
         now_price = element.xpath(
@@ -133,11 +115,6 @@ class JSPool_M(object):
         f_price = RemoveDot(remove_block(now_price))
         big_list.append(f_price[0])
         return big_list
-
-
-
-
-
 
 def insertDB(content):
     connection = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='123456', db='JS_Mons',
@@ -150,8 +127,10 @@ def insertDB(content):
         connection.commit()
         connection.close()
         print('向MySQL中添加数据成功！')
-    except TypeError :
+    except TypeError:
         pass
+
+
 
 
 
@@ -160,29 +139,22 @@ def insertDB(content):
 
 if __name__ == '__main__':
     while True:
-
         big_list = []
-        js225_url ='https://port.jpx.co.jp/jpx/template/quote.cgi?F=tmp/e_popchart&QCODE=111.555/O'
-        js400_url ='https://port.jpx.co.jp/jpx/template/quote.cgi?F=tmp/e_popchart&QCODE=105.555/O'
+        js225_url = "https://port.jpx.co.jp/jpx/template/quote.cgi?F=tmp/e_popchart&QCODE=111.555/O"
+        js400_url = 'https://port.jpx.co.jp/jpx/template/quote.cgi?F=tmp/e_popchart&QCODE=105.555/O'
 
-
-
-
-        jsp1 = JSPool_M(js225_url)# 这里把请求和解析都进行了处理
+        jsp1 = JSPool_M(js225_url)  # 这里把请求和解析都进行了处理
         jsp1.page_parse_()
-        jsp2 = JSPool_M(js400_url)# 这里把请求和解析都进行了处理
+        jsp2 = JSPool_M(js400_url)  # 这里把请求和解析都进行了处理
         jsp2.page_parse_()
 
-
-
-
-        js225_=big_list[0]
-        js400_=big_list[1]
+        js225_ = big_list[0]
+        js400_ = big_list[1]
 
         # 要价差，不要比价
-        js_225_400 = float(js225_)-float(js400_)
+        js_225_400 = float(js225_) - float(js400_)
 
-        title_l = [js225_,js400_,js_225_400]
+        title_l = [js225_, js400_, js_225_400]
 
         ff_l = []
         f_tup = tuple(title_l)
@@ -190,8 +162,9 @@ if __name__ == '__main__':
         print(big_list)
         print(ff_l)
         insertDB(ff_l)
-        time.sleep(60)
         print(datetime.datetime.now())
+
+
 #1720
 # 1803
 # 3612
@@ -201,3 +174,5 @@ if __name__ == '__main__':
 
 
 # create table FJSs(id int not null primary key auto_increment, js225_ FLOAT,js400_ FLOAT,js_225_4000 FLOAT, LastTime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ) engine=InnoDB  charset=utf8;
+
+
